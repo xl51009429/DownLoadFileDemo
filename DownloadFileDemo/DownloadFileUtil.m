@@ -120,7 +120,8 @@
     if (self.downloadTask) {
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"bl_isDownloading"];
         [self.downloadTask cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
-            
+//            NSMutableDictionary *dic = [NSPropertyListSerialization propertyListWithData:resumeData options:NSPropertyListMutableContainers format:NULL error:nil];
+//            NSLog(@"%@",dic);
         }];
     }
 }
@@ -170,7 +171,7 @@
             self.resumeData = [error.userInfo objectForKey:NSURLSessionDownloadTaskResumeData];
             //iOS10 对resumeData进行处理
             if ([UIDevice currentDevice].systemVersion.doubleValue >= 10.0) {
-                self.resumeData = [self getCorrectResumeData:self.resumeData];
+                //self.resumeData = [self getCorrectResumeData:self.resumeData];
             }
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"bl_isDownloading"]) {
                 self.downloadTask = [self.session downloadTaskWithResumeData:self.resumeData];
